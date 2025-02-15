@@ -4,15 +4,16 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import classNames from "classnames";
 import styles from "./Logo.module.scss";
-import { SpacingToken } from "../types";
+// import { SpacingToken } from "../types";
 import { Flex } from ".";
+import Image from "next/image";
 
-const sizeMap: Record<string, SpacingToken> = {
-  xs: "20",
-  s: "24",
-  m: "32",
-  l: "40",
-  xl: "48",
+const sizeMap: Record<string, number> = {
+  xs: 20,
+  s: 24,
+  m: 32,
+  l: 40,
+  xl: 48,
 };
 
 interface LogoProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -56,14 +57,25 @@ const Logo: React.FC<LogoProps> = ({
         />
       )}
       {iconSrc && (
-        <img
-          style={{
-            height: `var(--static-space-${sizeMap[size]})`,
-            width: "auto",
-          }}
-          alt="Trademark"
-          src={iconSrc}
-        />
+        // <img
+        //   style={{
+        //     height: `var(--static-space-${sizeMap[size]})`,
+        //     width: "auto",
+        //   }}
+        //   alt="Trademark"
+        //   src={iconSrc}
+        // />
+
+      //         <Image
+      //   height={sizeMap[size]} // Next.js optimizes the height
+      //   width="auto"
+      //   alt="Trademark"
+      //   src={iconSrc}
+      //   priority
+      // />
+      <Image height={sizeMap[size]} width={sizeMap[size]} alt="Trademark" src={iconSrc} priority />
+
+
       )}
       {wordmark && !wordmarkSrc && (
         <div
@@ -74,14 +86,25 @@ const Logo: React.FC<LogoProps> = ({
         />
       )}
       {wordmarkSrc && (
-        <img
-          style={{
-            height: `var(--static-space-${sizeMap[size]})`,
-            width: "auto",
-          }}
-          alt="Trademark"
-          src={wordmarkSrc}
-        />
+        // <img
+        //   style={{
+        //     height: `var(--static-space-${sizeMap[size]})`,
+        //     width: "auto",
+        //   }}
+        //   alt="Trademark"
+        //   src={wordmarkSrc}
+        // />
+
+      //         <Image
+      //   height={sizeMap[size]} // Next.js optimizes the height
+      //   width="auto"
+      //   alt="Trademark"
+      //   src={iconSrc}
+      //   priority
+      // />
+
+      <Image height={sizeMap[size]} width={sizeMap[size]} alt="Trademark" src={wordmarkSrc} priority />
+
       )}
     </>
   );

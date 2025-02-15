@@ -36,7 +36,13 @@ function readMDXFile(filePath: string) {
     }
 
   const rawContent = fs.readFileSync(filePath, "utf-8");
-  const { data, content } = matter(rawContent);
+  // const { data, content } = matter(rawContent);
+  const { data, content } = matter(rawContent, {
+    engines: {
+      yaml: (str) => require("js-yaml").load(str), // Force using `yaml.load`
+    },
+  });
+
 
   const metadata: Metadata = {
     title: data.title || "",

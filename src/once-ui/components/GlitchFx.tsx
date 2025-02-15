@@ -1,3 +1,115 @@
+// "use client";
+
+// import React, { useEffect, useState, forwardRef } from "react";
+// import styles from "./GlitchFx.module.scss";
+// import { Flex } from "./Flex";
+// import classNames from "classnames";
+
+// interface GlitchFxProps extends React.ComponentProps<typeof Flex> {
+//   children: React.ReactNode;
+//   speed?: "slow" | "medium" | "fast";
+//   interval?: number;
+//   trigger?: "instant" | "hover" | "custom";
+//   continuous?: boolean;
+// }
+
+// const GlitchFx = forwardRef<HTMLDivElement, GlitchFxProps>(
+//   (
+//     {
+//       children,
+//       speed = "medium",
+//       interval = 2500,
+//       trigger = "instant",
+//       continuous = true,
+//       ...rest
+//     },
+//     ref,
+//   ) => {
+//     const [isGlitching, setIsGlitching] = useState(continuous || trigger === "instant");
+
+//     useEffect(() => {
+//       if (continuous || trigger === "instant") {
+//         setIsGlitching(true);
+//       }
+//     }, [continuous, trigger]);
+
+//     const handleMouseEnter = () => {
+//       if (trigger === "hover") {
+//         setIsGlitching(true);
+//       }
+//     };
+
+//     const handleMouseLeave = () => {
+//       if (trigger === "hover") {
+//         setIsGlitching(false);
+//       }
+//     };
+
+//     const triggerGlitch = () => {
+//       if (trigger === "custom") {
+//         setIsGlitching(true);
+//         setTimeout(() => setIsGlitching(false), 500);
+//       }
+//     };
+
+//     useEffect(() => {
+//       if (trigger === "custom") {
+//         const glitchInterval = setInterval(triggerGlitch, interval);
+//         return () => clearInterval(glitchInterval);
+//       }
+//     }, [trigger, interval]);
+
+//     const speedClass = styles[speed];
+
+//     return (
+//       <Flex
+//         ref={ref}
+//         position="relative"
+//         inline
+//         zIndex={0}
+//         className={classNames(speedClass, isGlitching && styles.active)}
+//         onMouseEnter={handleMouseEnter}
+//         onMouseLeave={handleMouseLeave}
+//         {...rest}
+//       >
+//         <Flex fillWidth inline position="relative" zIndex={1}>
+//           {children}
+//         </Flex>
+
+//         <Flex
+//           inline
+//           position="absolute"
+//           top="0"
+//           left="0"
+//           fill
+//           zIndex={0}
+//           opacity={50}
+//           className={classNames(styles.glitchLayer, styles.blueShift)}
+//         >
+//           {children}
+//         </Flex>
+
+//         <Flex
+//           inline
+//           position="absolute"
+//           top="0"
+//           left="0"
+//           fill
+//           zIndex={0}
+//           opacity={50}
+//           className={classNames(styles.glitchLayer, styles.redShift)}
+//         >
+//           {children}
+//         </Flex>
+//       </Flex>
+//     );
+//   },
+// );
+
+// GlitchFx.displayName = "GlitchFx";
+// export { GlitchFx };
+
+
 "use client";
 
 import React, { useEffect, useState, forwardRef } from "react";
@@ -25,7 +137,9 @@ const GlitchFx = forwardRef<HTMLDivElement, GlitchFxProps>(
     },
     ref,
   ) => {
-    const [isGlitching, setIsGlitching] = useState(continuous || trigger === "instant");
+    const [isGlitching, setIsGlitching] = useState(
+      continuous || trigger === "instant"
+    );
 
     useEffect(() => {
       if (continuous || trigger === "instant") {
@@ -45,18 +159,19 @@ const GlitchFx = forwardRef<HTMLDivElement, GlitchFxProps>(
       }
     };
 
-    const triggerGlitch = () => {
-      if (trigger === "custom") {
-        setIsGlitching(true);
-        setTimeout(() => setIsGlitching(false), 500);
-      }
-    };
-
     useEffect(() => {
+      let glitchInterval: NodeJS.Timeout | null = null;
+
       if (trigger === "custom") {
-        const glitchInterval = setInterval(triggerGlitch, interval);
-        return () => clearInterval(glitchInterval);
+        glitchInterval = setInterval(() => {
+          setIsGlitching(true);
+          setTimeout(() => setIsGlitching(false), 500);
+        }, interval);
       }
+
+      return () => {
+        if (glitchInterval) clearInterval(glitchInterval);
+      };
     }, [trigger, interval]);
 
     const speedClass = styles[speed];
@@ -103,7 +218,7 @@ const GlitchFx = forwardRef<HTMLDivElement, GlitchFxProps>(
         </Flex>
       </Flex>
     );
-  },
+  }
 );
 
 GlitchFx.displayName = "GlitchFx";

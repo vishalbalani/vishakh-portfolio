@@ -1,10 +1,11 @@
 import { getPosts } from "@/app/utils/utils";
-import { Column } from "@/once-ui/components";
+import { Column, Heading } from "@/once-ui/components";
 import { ProjectCard } from "@/components";
 
 interface ProjectsProps {
   range?: [number, number?];
 }
+
 
 export function Projects({ range }: ProjectsProps) {
   let allProjects = getPosts(["src", "app", "work", "projects"]);
@@ -19,6 +20,9 @@ export function Projects({ range }: ProjectsProps) {
 
   return (
     <Column fillWidth gap="xl" marginBottom="40" paddingX="l">
+      <Heading as="h2" variant="display-strong-s" marginBottom="m">
+        My Projects
+      </Heading>
       {displayedProjects.map((post, index) => (
         <ProjectCard
           priority={index < 2}

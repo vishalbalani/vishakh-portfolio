@@ -15,6 +15,8 @@ const ElementType = forwardRef<HTMLElement, ElementTypeProps>(
   ({ href, children, className, style, ...props }, ref) => {
     if (href) {
       const isExternal = isExternalLink(href);
+      const { external, ...filteredProps } = props; // 🔹 Remove `external`
+
       if (isExternal) {
         return (
           <a
@@ -24,7 +26,7 @@ const ElementType = forwardRef<HTMLElement, ElementTypeProps>(
             ref={ref as React.Ref<HTMLAnchorElement>}
             className={className}
             style={style}
-            {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+            {...(filteredProps as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
           >
             {children}
           </a>
@@ -36,7 +38,7 @@ const ElementType = forwardRef<HTMLElement, ElementTypeProps>(
           ref={ref as React.Ref<HTMLAnchorElement>}
           className={className}
           style={style}
-          {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+          {...(filteredProps as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
         >
           {children}
         </Link>
@@ -52,8 +54,53 @@ const ElementType = forwardRef<HTMLElement, ElementTypeProps>(
         {children}
       </button>
     );
-  },
+  }
 );
+
+
+// const ElementType = forwardRef<HTMLElement, ElementTypeProps>(
+//   ({ href, children, className, style, ...props }, ref) => {
+//     if (href) {
+//       const isExternal = isExternalLink(href);
+//       if (isExternal) {
+//         return (
+//           <a
+//             href={href}
+//             target="_blank"
+//             rel="noreferrer"
+//             ref={ref as React.Ref<HTMLAnchorElement>}
+//             className={className}
+//             style={style}
+//             {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+//           >
+//             {children}
+//           </a>
+//         );
+//       }
+//       return (
+//         <Link
+//           href={href}
+//           ref={ref as React.Ref<HTMLAnchorElement>}
+//           className={className}
+//           style={style}
+//           {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+//         >
+//           {children}
+//         </Link>
+//       );
+//     }
+//     return (
+//       <button
+//         ref={ref as React.Ref<HTMLButtonElement>}
+//         className={className}
+//         style={style}
+//         {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+//       >
+//         {children}
+//       </button>
+//     );
+//   },
+// );
 
 ElementType.displayName = "ElementType";
 export { ElementType };

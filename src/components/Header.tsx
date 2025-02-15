@@ -7,7 +7,7 @@ import { Fade, Flex, Line, ToggleButton } from "@/once-ui/components";
 import styles from "@/components/Header.module.scss";
 
 import { routes, display } from "@/app/resources";
-import { person, home, about, blog, work, gallery } from "@/app/resources/content";
+import { person, home, about, resume, work, contact } from "@/app/resources/content";
 
 type TimeDisplayProps = {
   timeZone: string;
@@ -59,7 +59,7 @@ export const Header = () => {
         horizontal="center"
       >
         <Flex paddingLeft="12" fillWidth vertical="center" textVariant="body-default-s">
-          {display.location && <Flex hide="s">{person.location}</Flex>}
+          {/* {display.location && <Flex hide="s">{person.location}</Flex>} */}
         </Flex>
         <Flex fillWidth horizontal="center">
           <Flex
@@ -109,7 +109,7 @@ export const Header = () => {
                   />
                 </>
               )}
-              {routes["/blog"] && (
+              {/* {routes["/blog"] && (
                 <>
                   <ToggleButton
                     className="s-flex-hide"
@@ -125,8 +125,47 @@ export const Header = () => {
                     selected={pathname.startsWith("/blog")}
                   />
                 </>
+              )} */}
+              {routes["/resume"] && (
+                <>
+                  <ToggleButton
+                    className="s-flex-hide"
+                    prefixIcon="book"
+                    href="https://drive.google.com/file/d/1urSbLmkUxjlW4XCVdVh5ym5NGcy8jy0I/view?usp=sharing" // Replace with actual Google Drive URL
+                    label={resume.label}
+                    selected={pathname.startsWith("/resume")}
+                    external // Opens in a new tab if your ToggleButton supports it
+                  />
+                  <ToggleButton
+                    className="s-flex-show"
+                    prefixIcon="book"
+                    href="https://drive.google.com/file/d/1urSbLmkUxjlW4XCVdVh5ym5NGcy8jy0I/view?usp=sharing" // Replace with actual Google Drive URL
+                    selected={pathname.startsWith("/resume")}
+                    external
+                  />
+                </>
               )}
-              {routes["/gallery"] && (
+
+              {routes["/contact"] && (
+                <>
+                  <ToggleButton
+                    className="s-flex-hide"
+                    prefixIcon="email"
+                    href="/contact"
+                    label={contact.label}
+                    selected={pathname.startsWith("/contact")}
+                  />
+                  <ToggleButton
+                    className="s-flex-show"
+                    prefixIcon="email"
+                    href="/contact"
+                    selected={pathname.startsWith("/contact")}
+                  />
+                </>
+              )}
+
+
+              {/* {routes["/gallery"] && (
                 <>
                   <ToggleButton
                     className="s-flex-hide"
@@ -142,7 +181,7 @@ export const Header = () => {
                     selected={pathname.startsWith("/gallery")}
                   />
                 </>
-              )}
+              )} */}
             </Flex>
           </Flex>
         </Flex>
@@ -154,7 +193,7 @@ export const Header = () => {
             textVariant="body-default-s"
             gap="20"
           >
-            <Flex hide="s">{display.time && <TimeDisplay timeZone={person.location} />}</Flex>
+            <Flex hide="s">{display.time && <TimeDisplay timeZone={person.timeZone} />}</Flex>
           </Flex>
         </Flex>
       </Flex>

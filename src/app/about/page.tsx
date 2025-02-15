@@ -61,11 +61,27 @@ export default function About() {
       display: about.studies.display,
       items: about.studies.institutions.map((institution) => institution.name),
     },
+
     {
-      title: about.technical.title,
-      display: about.technical.display,
-      items: about.technical.skills.map((skill) => skill.title),
+      title: about.technicalSkills.title,  // ✅ Reference from `about`
+      display: about.technicalSkills.display,
+      items: about.technicalSkills.skills,  // ✅ Reference the skills array
+      id: "technical-skills",
     },
+    // {
+    //   title: "Technical Skills",  // Directly naming it instead of referencing
+    //   display: true,     // Ensuring it's displayed
+    //   items: [
+    //     "C++","JavaScript", "React.js", "Next.js", "Node.js", "SQL",
+    //     "Python", "AWS", "Firebase", "Github", "Git", "HTML", "CSS", "Figma"
+    //   ],
+    //   id: "technical-skills",
+    // },
+    // {
+    //   title: about.technical.title,
+    //   display: about.technical.display,
+    //   items: about.technical.skills.map((skill) => skill.title),
+    // },
   ];
   return (
     <Column maxWidth="m">
@@ -117,7 +133,7 @@ export default function About() {
             <Avatar src={person.avatar} size="xl" />
             <Flex gap="8" vertical="center">
               <Icon onBackground="accent-weak" name="globe" />
-              {person.location}
+              {person.aboutLocation}
             </Flex>
             {person.languages.length > 0 && (
               <Flex wrap gap="8">
@@ -138,7 +154,7 @@ export default function About() {
             vertical="center"
             marginBottom="32"
           >
-            {about.calendar.display && (
+            {/* {about.calendar.display && (
               <Flex
                 fitWidth
                 border="brand-alpha-medium"
@@ -161,8 +177,8 @@ export default function About() {
                   variant="secondary"
                   icon="chevronRight"
                 />
-              </Flex>
-            )}
+              </Flex> */}
+            {/* )} */}
             <Heading className={styles.textAlign} variant="display-strong-xl">
               {person.name}
             </Heading>
@@ -283,6 +299,9 @@ export default function About() {
                       {institution.name}
                     </Text>
                     <Text variant="heading-default-xs" onBackground="neutral-weak">
+                      {institution.timeframe}
+                    </Text>
+                    <Text variant="heading-default-xs" onBackground="neutral-weak">
                       {institution.description}
                     </Text>
                   </Column>
@@ -290,8 +309,35 @@ export default function About() {
               </Column>
             </>
           )}
+          {/* <Heading as="h2" id="Skills" variant="display-strong-s" marginBottom="40">
+  Technical Skills
+</Heading>
+<Column fillWidth gap="m" marginBottom="40">
+  {[
+    "C++","JavaScript", "React.js", "Next.js", "Node.js", "SQL",
+    "Python", "AWS", "Firebase", "Github", "Git", "HTML", "CSS", "Figma"
+  ].map((skill, index) => (
+    <Tag key={index} size="l">{skill}</Tag>
+  ))}
+</Column> */}
 
-          {about.technical.display && (
+{about.technicalSkills.display && (
+  <section id="Technical Skills">
+    <Heading as="h2" variant="display-strong-s" marginBottom="m">
+      {about.technicalSkills.title}
+    </Heading>
+    <Flex wrap gap="8">
+      {about.technicalSkills.skills.map((skill, index) => (
+        <Tag key={index} size="l">
+          {skill}
+        </Tag>
+      ))}
+    </Flex>
+  </section>
+)}
+
+
+          {/* {about.technical.display && (
             <>
               <Heading
                 as="h2"
@@ -338,7 +384,7 @@ export default function About() {
                 ))}
               </Column>
             </>
-          )}
+          )} */}
         </Column>
       </Flex>
     </Column>

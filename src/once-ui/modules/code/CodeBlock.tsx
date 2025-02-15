@@ -5,7 +5,7 @@ import React, { useState, useEffect, useRef, ReactNode } from "react";
 import "./CodeHighlight.css";
 import styles from "./CodeBlock.module.scss";
 
-import { Flex, Button, IconButton, DropdownWrapper, Option } from "@/once-ui/components";
+import { Flex, Button, IconButton, Option } from "@/once-ui/components";
 
 import Prism from "prismjs";
 import "prismjs/plugins/line-highlight/prism-line-highlight";
@@ -104,7 +104,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
         <Flex borderBottom="neutral-medium" zIndex={2} fillWidth horizontal="space-between">
           {codeInstances.length > 1 ? (
             <Flex borderRight="neutral-medium">
-              <DropdownWrapper
+              {/* <DropdownWrapper
                 isOpen={isDropdownOpen}
                 onOpenChange={setIsDropdownOpen}
                 trigger={
@@ -136,7 +136,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
                     ))}
                   </Flex>
                 }
-              />
+              />  */}
             </Flex>
           ) : (
             <div />
