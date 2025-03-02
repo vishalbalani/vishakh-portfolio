@@ -58,3 +58,4 @@ export * from "./Toaster";
 export * from "./ToastProvider";
 export * from "./ToggleButton";
 export * from "./User";
+export * from './Tooltip';

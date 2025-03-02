@@ -316,7 +316,8 @@ import classNames from "classnames";
 import { IconType } from "react-icons";
 import { iconLibrary } from "../icons";
 import { ColorScheme, ColorWeight } from "../types";
-import { Flex, Tooltip } from ".";
+import { Flex } from ".";
+import Tooltip from './Tooltip';
 import styles from "./Icon.module.scss";
 
 interface IconProps extends React.ComponentProps<typeof Flex> {
@@ -325,7 +326,7 @@ interface IconProps extends React.ComponentProps<typeof Flex> {
   onSolid?: `${ColorScheme}-${ColorWeight}`;
   size?: "xs" | "s" | "m" | "l" | "xl";
   decorative?: boolean;
-  tooltip?: ReactNode;
+tooltip?: ReactNode;
   tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
